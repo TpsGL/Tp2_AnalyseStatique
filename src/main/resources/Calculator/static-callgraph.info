@@ -1,0 +1,108 @@
+Static Call Graph
+Methods: 35.
+Invocations: 75.
+com.houarizegai.calculator.CalculatorTest::testCalc:
+	---> e::printStackTrace (1 time(s))
+	---> calculator::calc (6 time(s))
+	---> Assertions::assertEquals (6 time(s))
+
+com.houarizegai.calculator.Calculator::initBtn:
+	---> javax.swing.JButton::setFont (1 time(s))
+	---> javax.swing.JButton::setBounds (1 time(s))
+	---> javax.swing.JFrame::add (1 time(s))
+	---> javax.swing.JButton::setFocusable (1 time(s))
+	---> javax.swing.JButton::setCursor (1 time(s))
+	---> javax.swing.JButton::addActionListener (1 time(s))
+
+com.houarizegai.calculator.Calculator::repaintFont:
+	---> java.awt.Font::deriveFont (1 time(s))
+	---> javax.swing.JTextField::setFont (1 time(s))
+	---> javax.swing.JTextField::getFont (1 time(s))
+
+com.houarizegai.calculator.Calculator::calc:
+	---> java.awt.Font::deriveFont (2 time(s))
+	---> javax.swing.JTextField::setFont (2 time(s))
+	---> java.lang.Double::parseDouble (1 time(s))
+	---> javax.swing.JTextField::getFont (2 time(s))
+	---> java.lang.Math::pow (1 time(s))
+
+com.houarizegai.calculator.Calculator::initCombo:
+	---> javax.swing.JComboBox<java.lang.String>::setBounds (1 time(s))
+	---> javax.swing.JFrame::add (1 time(s))
+	---> javax.swing.JComboBox<java.lang.String>::setToolTipText (1 time(s))
+	---> javax.swing.JComboBox<java.lang.String>::addItemListener (1 time(s))
+	---> javax.swing.JComboBox<java.lang.String>::setCursor (1 time(s))
+
+com.houarizegai.calculator.Calculator::Calculator:
+	---> javax.swing.JFrame::setDefaultCloseOperation (1 time(s))
+	---> javax.swing.JButton::setFont (1 time(s))
+	---> javax.swing.JFrame::add (1 time(s))
+	---> javax.swing.JTextField::setFont (1 time(s))
+	---> com.houarizegai.calculator.Calculator::initBtn (22 time(s))
+	---> javax.swing.JButton::setSize (1 time(s))
+	---> javax.swing.JTextField::setBackground (1 time(s))
+	---> javax.swing.JFrame::setResizable (1 time(s))
+	---> javax.swing.JTextField::setBounds (1 time(s))
+	---> javax.swing.JFrame::setVisible (1 time(s))
+	---> javax.swing.JFrame::setLocationRelativeTo (1 time(s))
+	---> javax.swing.JTextField::setEditable (1 time(s))
+	---> javax.swing.JButton::setVisible (3 time(s))
+	---> javax.swing.JFrame::setLayout (1 time(s))
+	---> javax.swing.JFrame::setSize (1 time(s))
+	---> com.houarizegai.calculator.Calculator::initCombo (2 time(s))
+
+
+Static Call Graph
+Methods: 35.
+Invocations: 75.
+com.houarizegai.calculator.CalculatorTest::testCalc:
+	---> e::printStackTrace (1 time(s))
+	---> calculator::calc (6 time(s))
+	---> Assertions::assertEquals (6 time(s))
+
+com.houarizegai.calculator.Calculator::initBtn:
+	---> javax.swing.JButton::setFont (1 time(s))
+	---> javax.swing.JButton::setBounds (1 time(s))
+	---> javax.swing.JFrame::add (1 time(s))
+	---> javax.swing.JButton::setFocusable (1 time(s))
+	---> javax.swing.JButton::setCursor (1 time(s))
+	---> javax.swing.JButton::addActionListener (1 time(s))
+
+com.houarizegai.calculator.Calculator::repaintFont:
+	---> java.awt.Font::deriveFont (1 time(s))
+	---> javax.swing.JTextField::setFont (1 time(s))
+	---> javax.swing.JTextField::getFont (1 time(s))
+
+com.houarizegai.calculator.Calculator::calc:
+	---> java.awt.Font::deriveFont (2 time(s))
+	---> javax.swing.JTextField::setFont (2 time(s))
+	---> java.lang.Double::parseDouble (1 time(s))
+	---> javax.swing.JTextField::getFont (2 time(s))
+	---> java.lang.Math::pow (1 time(s))
+
+com.houarizegai.calculator.Calculator::initCombo:
+	---> javax.swing.JComboBox<java.lang.String>::setBounds (1 time(s))
+	---> javax.swing.JFrame::add (1 time(s))
+	---> javax.swing.JComboBox<java.lang.String>::setToolTipText (1 time(s))
+	---> javax.swing.JComboBox<java.lang.String>::addItemListener (1 time(s))
+	---> javax.swing.JComboBox<java.lang.String>::setCursor (1 time(s))
+
+com.houarizegai.calculator.Calculator::Calculator:
+	---> javax.swing.JFrame::setDefaultCloseOperation (1 time(s))
+	---> javax.swing.JButton::setFont (1 time(s))
+	---> javax.swing.JFrame::add (1 time(s))
+	---> javax.swing.JTextField::setFont (1 time(s))
+	---> com.houarizegai.calculator.Calculator::initBtn (22 time(s))
+	---> javax.swing.JButton::setSize (1 time(s))
+	---> javax.swing.JTextField::setBackground (1 time(s))
+	---> javax.swing.JFrame::setResizable (1 time(s))
+	---> javax.swing.JTextField::setBounds (1 time(s))
+	---> javax.swing.JFrame::setVisible (1 time(s))
+	---> javax.swing.JFrame::setLocationRelativeTo (1 time(s))
+	---> javax.swing.JTextField::setEditable (1 time(s))
+	---> javax.swing.JButton::setVisible (3 time(s))
+	---> javax.swing.JFrame::setLayout (1 time(s))
+	---> javax.swing.JFrame::setSize (1 time(s))
+	---> com.houarizegai.calculator.Calculator::initCombo (2 time(s))
+
+

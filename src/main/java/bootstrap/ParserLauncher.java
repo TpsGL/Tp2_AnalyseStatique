@@ -15,8 +15,12 @@ import java.util.ArrayList;
 
 public class ParserLauncher {
 
-    public static final String projectPath="C:\\Users\\gm_be\\IdeaProjects\\Tp2_restructuration\\src\\main\\resources\\Calculator";
+    public static final String projectPath = "C:\\Users\\gm_be\\IdeaProjects\\untitled1";
+
+    //public static final String projectPath="C:\\Users\\gm_be\\IdeaProjects\\Tp2_restructuration\\src\\main\\resources\\Calculator";
+
     public static final String projectSrcPath=projectPath + "\\src\\";
+
     public static final String jrePath="C:\\Program Files\\Java\\jdk1.8.0_291";
 
     public static void main(String[] args) throws IOException {
@@ -30,7 +34,7 @@ public class ParserLauncher {
 
         ResultView resultView = new ResultView();
 
-        resultView.launchView(astCreator, javaFiles);
+        //resultView.launchView(astCreator, javaFiles);
         //ClassCounter classCounter = new ClassCounter();
         //AttributesCounter attributesCounter = new AttributesCounter();
         // Nombre total de packages de l’application
@@ -42,7 +46,7 @@ public class ParserLauncher {
             //System.out.println( attributesCounter.countItems(cu) );
             System.out.println(methodCounter.countItems(cu));
         }*/
-        System.out.println( "Nombre totale de classes = " +
+        /*System.out.println( "Nombre totale de classes = " +
                 ClassesApp.getInstance().classesNumber(astCreator,javaFiles)
         );
 
@@ -96,10 +100,12 @@ public class ParserLauncher {
 
         System.out.println( "Le nombre maximal de paramètre par rapport à toutes les méthodes de l'application = " +
                 MaxParametersApp.getInstance().maxParametersNumber(astCreator, javaFiles)
-        );
+        );*/
 
 
         CallGraph.getInstance("call_graph").createCallGraph(astCreator, javaFiles);
+
+
 
     }
 }

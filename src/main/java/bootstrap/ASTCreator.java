@@ -33,7 +33,7 @@ public class ASTCreator {
         String[] sources = { projectSourcePath };
         String[] classpath = {jrePath};
 
-        parser.setEnvironment(classpath, sources, new String[] { "UTF-8"}, true);
+        parser.setEnvironment(classpath, sources, new String[] { "UTF-8" }, true);
         parser.setSource(classSource);
 
         return (CompilationUnit) parser.createAST(null); // create and parse

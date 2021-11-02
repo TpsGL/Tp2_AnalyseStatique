@@ -9,13 +9,13 @@ import guru.nidi.graphviz.model.MutableGraph;
 import guru.nidi.graphviz.parse.Parser;
 import org.apache.commons.io.FileUtils;
 import org.eclipse.jdt.core.dom.*;
-import visitors.MethodDeclarationVisitor;
 import visitors.MethodInvocationVisitor;
 
-import java.awt.*;
 import java.io.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 public class CallGraph {
@@ -28,6 +28,9 @@ public class CallGraph {
     private static final String pngExtention = ".png";
     private final String dotFilePath;
     private final String pngFilePath;
+
+    private Map<String, Map<String, Map<String, String>>> invocations = new HashMap<>();
+
 
     private CallGraph(String fileName) {
         this.fileName = fileName;
@@ -112,21 +115,27 @@ public class CallGraph {
         String methodName = "";
 
         IMethodBinding resolveBinding = method.resolveBinding();
-        if ((resolveBinding != null) && (resolveBinding.getDeclaringClass()!= null) ) {
+       if ((resolveBinding != null) && (resolveBinding.getDeclaringClass()!= null) ) {
+
             methodName += method.resolveBinding().getDeclaringClass().getName() + ".";
-        }
-        methodName += method.getName().toString() + "()";
+       }
+
+        //methodName += method.getName().toString() + "()";
 
         return methodName;
     }
 
     private String constructFullNameOfInvokedMethod(MethodInvocation methodInvocation) {
+
         String invokedMethodName = "";
 
-        IMethodBinding methodBinding = methodInvocation.resolveMethodBinding();
+        Expression expression = methodInvocation.getExpression();
 
-        if ((methodBinding != null) && (methodBinding.getDeclaringClass()!=null) ) {
-            invokedMethodName+=methodBinding.getDeclaringClass().getName() + ".";
+        if (expression != null) {
+
+            ITypeBinding typeBinding = expression.resolveTypeBinding();
+            invokedMethodName += typeBinding.getTypeDeclaration().getName() + ".";
+
         }
 
         invokedMethodName+= methodInvocation.getName();
