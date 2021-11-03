@@ -1,7 +1,7 @@
 package responsesForQuestions.dixPercen;
 
 
-import bootstrap.ASTCreator;
+import bootstrap.jdt.ASTCreator;
 import calculators.ClassCounter;
 import calculators.MethodCounter;
 import org.apache.commons.io.FileUtils;

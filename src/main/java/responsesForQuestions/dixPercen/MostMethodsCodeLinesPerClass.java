@@ -1,9 +1,7 @@
 package responsesForQuestions.dixPercen;
 
-import bootstrap.ASTCreator;
+import bootstrap.jdt.ASTCreator;
 import calculators.ClassCounter;
-import calculators.CodeLinesPerMethodCounter;
-import calculators.MethodCounter;
 import org.apache.commons.io.FileUtils;
 import org.eclipse.jdt.core.dom.CompilationUnit;
 import org.eclipse.jdt.core.dom.MethodDeclaration;

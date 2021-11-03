@@ -1,6 +1,6 @@
 package responsesForQuestions.moyen;
 
-import bootstrap.ASTCreator;
+import bootstrap.jdt.ASTCreator;
 import calculators.MethodCounter;
 import org.apache.commons.io.FileUtils;
 import org.eclipse.jdt.core.dom.CompilationUnit;
@@ -9,8 +9,6 @@ import responsesForQuestions.total.ClassesApp;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
 public class MethodsPerClassApp {
 

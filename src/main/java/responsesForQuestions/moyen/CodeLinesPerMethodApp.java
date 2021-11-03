@@ -1,6 +1,6 @@
 package responsesForQuestions.moyen;
 
-import bootstrap.ASTCreator;
+import bootstrap.jdt.ASTCreator;
 import calculators.CodeLinesPerMethodCounter;
 import org.apache.commons.io.FileUtils;
 import org.eclipse.jdt.core.dom.CompilationUnit;

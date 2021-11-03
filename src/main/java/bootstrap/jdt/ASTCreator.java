@@ -1,4 +1,4 @@
-package bootstrap;
+package bootstrap.jdt;
 
 import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.core.dom.AST;
@@ -12,7 +12,7 @@ public class ASTCreator {
     private String projectSourcePath;
     private String jrePath;
 
-    ASTCreator(String projectSourcePath, String jrePath) {
+    public ASTCreator(String projectSourcePath, String jrePath) {
         this.projectSourcePath = projectSourcePath;
         this.jrePath = jrePath;
     }

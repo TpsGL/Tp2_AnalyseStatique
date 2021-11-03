@@ -1,12 +1,7 @@
 package views;
 
-import bootstrap.ASTCreator;
-import org.jfree.chart.ChartFactory;
-import org.jfree.chart.ChartPanel;
-import org.jfree.chart.JFreeChart;
-import org.jfree.data.general.DefaultPieDataset;
+import bootstrap.jdt.ASTCreator;
 import responsesForQuestions.dixPercen.*;
-import responsesForQuestions.moyen.CodeLinesPerMethodApp;
 
 import javax.swing.*;
 import java.awt.*;

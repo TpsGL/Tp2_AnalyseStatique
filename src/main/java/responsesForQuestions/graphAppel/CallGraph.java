@@ -1,12 +1,8 @@
 package responsesForQuestions.graphAppel;
 
 
-import bootstrap.ASTCreator;
+import bootstrap.jdt.ASTCreator;
 import calculators.MethodCounter;
-import guru.nidi.graphviz.engine.Format;
-import guru.nidi.graphviz.engine.Graphviz;
-import guru.nidi.graphviz.model.MutableGraph;
-import guru.nidi.graphviz.parse.Parser;
 import org.apache.commons.io.FileUtils;
 import org.eclipse.jdt.core.dom.*;
 import visitors.MethodInvocationVisitor;
@@ -16,7 +12,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 public class CallGraph {
 
@@ -29,7 +24,12 @@ public class CallGraph {
     private final String dotFilePath;
     private final String pngFilePath;
 
-    private Map<String, Map<String, Map<String, String>>> invocations = new HashMap<>();
+    /**
+     * data structure
+     */
+    public Map<String, Map<String, Map<String, String>>> sourceClassesInvocations = new HashMap<>();
+
+
 
 
     private CallGraph(String fileName) {
@@ -54,12 +54,12 @@ public class CallGraph {
 
     private void createDotGraph(ASTCreator astCreator, ArrayList<File> javaFiles) throws IOException {
 
-        FileWriter writer = new FileWriter(dotFilePath);
-        writer.write("digraph \"call-graph\" {\n");
+       // FileWriter writer = new FileWriter(dotFilePath);
+       // writer.write("digraph \"call-graph\" {\n");
 
         initGraphNode(astCreator, javaFiles);
 
-        methodInvocations.stream().distinct().collect(Collectors.toList()).forEach(methodInvocation -> {
+        /*methodInvocations.stream().distinct().collect(Collectors.toList()).forEach(methodInvocation -> {
             try {
                 writer.write(methodInvocation);
             } catch (IOException e) {
@@ -67,17 +67,17 @@ public class CallGraph {
             }
         });
         writer.write("}");
-        writer.close();
+        writer.close();*/
     }
 
      private void transformDotGraphToPngImage() {
-        try (InputStream dotFile = new FileInputStream(dotFilePath)) {
+        /*try (InputStream dotFile = new FileInputStream(dotFilePath)) {
             MutableGraph mutableGraph = new Parser().read(dotFile);
             Graphviz.fromGraph(mutableGraph).width(10000).render(Format.PNG).toFile(new File(pngFilePath));
             System.out.println("!!! PNG Image Successfully Generated !!!");
         } catch (IOException e) {
             e.printStackTrace();
-        }
+        }*/
     }
 
 
@@ -87,16 +87,69 @@ public class CallGraph {
             String content = FileUtils.readFileToString(javaFile);
             CompilationUnit cu = astCreator.parse(content.toCharArray());
             visitMethodInvocationIntoMethodDeclaration(cu);
+           // System.out.println(sourceClassesInvocations);
         }
+
+        System.out.println(sourceClassesInvocations);
     }
+
+    /**
+     * Get the name of the class which contains the method declaration
+     * @param methodDeclaration
+     * @return
+     */
+    public String getClassDeclarationName(MethodDeclaration methodDeclaration) {
+        IMethodBinding resolveBinding = methodDeclaration.resolveBinding();
+        if ((resolveBinding != null) && (resolveBinding.getDeclaringClass()!= null) ) {
+           return methodDeclaration.resolveBinding().getDeclaringClass().getName();
+        }
+        return "";
+    }
+
+    /**
+     * Get the name of method declaration
+     * @param methodDeclaration
+     * @return
+     */
+    public String getMethodDeclarationName(MethodDeclaration methodDeclaration) {
+        return methodDeclaration.getName().getFullyQualifiedName();
+    }
+
+    /**
+     * Get the name of method invocation
+     * @param methodInvocation
+     * @return
+     */
+    public String getClassDeclarationOfMethodInvocationName(MethodInvocation methodInvocation) {
+        Expression expression = methodInvocation.getExpression();
+        if (expression != null) {
+            ITypeBinding typeBinding = expression.resolveTypeBinding();
+            return typeBinding.getTypeDeclaration().getName();
+        }
+        return "";
+    }
+
+    public String getMethodInvocationName(MethodInvocation methodInvocation) {
+        return methodInvocation.getName().getFullyQualifiedName();
+    }
+
 
 
     private void visitMethodInvocationIntoMethodDeclaration(CompilationUnit cu) {
 
         MethodCounter methodCounter = new MethodCounter();
+
         methodCounter.countItems(cu);
 
+        String classDeclarationName = "";
+
+        Map<String, Map<String, String>> methodsInvocations = new HashMap<>();
+
+        Map<String, String> targetClassesInvocations = new HashMap<>();
+
         for (MethodDeclaration method : methodCounter.getMethodDeclarations()) {
+
+
 
             MethodInvocationVisitor methodInvocationVisitor = new MethodInvocationVisitor();
             method.accept(methodInvocationVisitor);
@@ -104,42 +157,25 @@ public class CallGraph {
 
             for (MethodInvocation methodInvocation : methodInvocationVisitor.getMethods()) {
 
-                methodInvocations.add("\t" + "\"" + constructFullNameOfCallerMethod(method)
-                        + "\"->\"" + constructFullNameOfInvokedMethod(methodInvocation) + "()\";\n");
+
+                targetClassesInvocations.put( getMethodInvocationName(methodInvocation),
+                        getClassDeclarationOfMethodInvocationName(methodInvocation) );
+
             }
-        }
-    }
 
-    private String constructFullNameOfCallerMethod(MethodDeclaration method) {
 
-        String methodName = "";
+            methodsInvocations.put( getMethodDeclarationName(method), targetClassesInvocations);
 
-        IMethodBinding resolveBinding = method.resolveBinding();
-       if ((resolveBinding != null) && (resolveBinding.getDeclaringClass()!= null) ) {
 
-            methodName += method.resolveBinding().getDeclaringClass().getName() + ".";
-       }
+            if (classDeclarationName != (getClassDeclarationName(method))) {
+                sourceClassesInvocations.put( getClassDeclarationName(method), methodsInvocations);
+                classDeclarationName = getClassDeclarationName(method);
 
-        //methodName += method.getName().toString() + "()";
+            }
 
-        return methodName;
-    }
-
-    private String constructFullNameOfInvokedMethod(MethodInvocation methodInvocation) {
-
-        String invokedMethodName = "";
-
-        Expression expression = methodInvocation.getExpression();
-
-        if (expression != null) {
-
-            ITypeBinding typeBinding = expression.resolveTypeBinding();
-            invokedMethodName += typeBinding.getTypeDeclaration().getName() + ".";
-
+            targetClassesInvocations = new HashMap<>();
         }
 
-        invokedMethodName+= methodInvocation.getName();
-        return invokedMethodName;
     }
 
 

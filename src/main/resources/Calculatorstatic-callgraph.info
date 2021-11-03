@@ -1,0 +1,54 @@
+Static Call Graph
+Methods: 35.
+Invocations: 75.
+com.houarizegai.calculator.CalculatorTest::testCalc:
+	---> e::printStackTrace (1 time(s))
+	---> calculator::calc (6 time(s))
+	---> Assertions::assertEquals (6 time(s))
+
+com.houarizegai.calculator.Calculator::initBtn:
+	---> JButton::addActionListener (1 time(s))
+	---> JButton::setBounds (1 time(s))
+	---> JFrame::add (1 time(s))
+	---> JButton::setFont (1 time(s))
+	---> JButton::setCursor (1 time(s))
+	---> JButton::setFocusable (1 time(s))
+
+com.houarizegai.calculator.Calculator::repaintFont:
+	---> Font::deriveFont (1 time(s))
+	---> JTextField::getFont (1 time(s))
+	---> JTextField::setFont (1 time(s))
+
+com.houarizegai.calculator.Calculator::calc:
+	---> Double::parseDouble (1 time(s))
+	---> Font::deriveFont (2 time(s))
+	---> JTextField::getFont (2 time(s))
+	---> JTextField::setFont (2 time(s))
+	---> Math::pow (1 time(s))
+
+com.houarizegai.calculator.Calculator::initCombo:
+	---> JComboBox::setToolTipText (1 time(s))
+	---> JComboBox::setCursor (1 time(s))
+	---> JFrame::add (1 time(s))
+	---> JComboBox::addItemListener (1 time(s))
+	---> JComboBox::setBounds (1 time(s))
+
+com.houarizegai.calculator.Calculator::Calculator:
+	---> JButton::setSize (1 time(s))
+	---> JFrame::setVisible (1 time(s))
+	---> com.houarizegai.calculator.Calculator::initBtn (22 time(s))
+	---> JFrame::setSize (1 time(s))
+	---> JButton::setFont (1 time(s))
+	---> JTextField::setFont (1 time(s))
+	---> JFrame::setLocationRelativeTo (1 time(s))
+	---> JFrame::setResizable (1 time(s))
+	---> JFrame::setDefaultCloseOperation (1 time(s))
+	---> JTextField::setBounds (1 time(s))
+	---> JTextField::setEditable (1 time(s))
+	---> JFrame::add (1 time(s))
+	---> JButton::setVisible (3 time(s))
+	---> JTextField::setBackground (1 time(s))
+	---> com.houarizegai.calculator.Calculator::initCombo (2 time(s))
+	---> JFrame::setLayout (1 time(s))
+
+

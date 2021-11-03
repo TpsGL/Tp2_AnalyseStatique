@@ -1,17 +1,14 @@
 package responsesForQuestions.dixPercen;
 
-import bootstrap.ASTCreator;
-import calculators.ClassCounter;
+import bootstrap.jdt.ASTCreator;
 import calculators.MethodCounter;
 import org.apache.commons.io.FileUtils;
 import org.eclipse.jdt.core.dom.CompilationUnit;
 import org.eclipse.jdt.core.dom.MethodDeclaration;
-import org.eclipse.jdt.core.dom.TypeDeclaration;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.*;
-import java.util.stream.Collectors;
 
 public class MaxParametersApp {
 

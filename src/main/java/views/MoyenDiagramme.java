@@ -1,6 +1,6 @@
 package views;
 
-import bootstrap.ASTCreator;
+import bootstrap.jdt.ASTCreator;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;

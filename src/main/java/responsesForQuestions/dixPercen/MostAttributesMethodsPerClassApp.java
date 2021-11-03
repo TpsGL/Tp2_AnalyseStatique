@@ -1,16 +1,10 @@
 package responsesForQuestions.dixPercen;
 
-import bootstrap.ASTCreator;
-import calculators.AttributesCounter;
-import calculators.ClassCounter;
-import org.apache.commons.io.FileUtils;
-import org.eclipse.jdt.core.dom.CompilationUnit;
-import org.eclipse.jdt.core.dom.TypeDeclaration;
+import bootstrap.jdt.ASTCreator;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.*;
-import java.util.stream.Collectors;
 
 public class MostAttributesMethodsPerClassApp {
 

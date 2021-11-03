@@ -1,6 +1,6 @@
 package responsesForQuestions.total;
 
-import bootstrap.ASTCreator;
+import bootstrap.jdt.ASTCreator;
 import calculators.ImportsCounter;
 import calculators.PackageCounter;
 import org.apache.commons.io.FileUtils;
