@@ -1,4 +1,4 @@
-package bootstrap.jdt;
+package bootstrap.parsers.jdt;
 
 import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.core.dom.AST;
@@ -7,12 +7,12 @@ import org.eclipse.jdt.core.dom.CompilationUnit;
 
 import java.util.Map;
 
-public class ASTCreator {
+public class EclipseJDTASTParser {
 
     private String projectSourcePath;
     private String jrePath;
 
-    public ASTCreator(String projectSourcePath, String jrePath) {
+    public EclipseJDTASTParser(String projectSourcePath, String jrePath) {
         this.projectSourcePath = projectSourcePath;
         this.jrePath = jrePath;
     }

@@ -1,7 +1,7 @@
-package bootstrap.utils;
+package bootstrap.main;
 
-import bootstrap.jdt.ASTCreator;
-import bootstrap.utils.ProjectReader;
+import bootstrap.parsers.ProjectReader;
+import bootstrap.parsers.jdt.EclipseJDTASTParser;
 import graphs.CouplingGraphTransformer;
 import graphs.Graph;
 import graphs.StaticCallGraph;
@@ -28,9 +28,9 @@ public class ParserLauncher {
         final File folder = new File(projectSrcPath);
         ArrayList<File> javaFiles  = projectReader.listJavaFilesForFolder(folder);
 
-        ASTCreator astCreator = new ASTCreator(projectPath, jrePath);
+        EclipseJDTASTParser parser = new EclipseJDTASTParser(projectPath, jrePath);
 
-        Graph graph = StaticCallGraph.getInstance().createCallGraph(astCreator, javaFiles);
+        Graph graph = StaticCallGraph.getInstance().createCallGraph(parser, javaFiles);
 
         CouplingGraphTransformer couplingGraphTransformer = new CouplingGraphTransformer(graph);
 

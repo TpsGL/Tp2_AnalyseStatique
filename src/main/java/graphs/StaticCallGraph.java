@@ -1,7 +1,6 @@
 package graphs;
 
-import bootstrap.jdt.ASTCreator;
-import calculators.MethodCounter;
+import bootstrap.parsers.jdt.EclipseJDTASTParser;
 import org.apache.commons.io.FileUtils;
 import org.eclipse.jdt.core.dom.*;
 import visitors.MethodInvocationVisitor;
@@ -23,13 +22,13 @@ public class StaticCallGraph {
 
 
 
-    public Graph createCallGraph(ASTCreator astCreator, ArrayList<File> javaFiles) throws IOException {
+    public Graph createCallGraph(EclipseJDTASTParser parser, ArrayList<File> javaFiles) throws IOException {
 
         Graph graph = new Graph();
 
         for (File javaFile : javaFiles) {
             String content = FileUtils.readFileToString(javaFile);
-            CompilationUnit cu = astCreator.parse(content.toCharArray());
+            CompilationUnit cu = parser.parse(content.toCharArray());
             visitMethodInvocationIntoMethodDeclaration(graph, cu);
         }
 

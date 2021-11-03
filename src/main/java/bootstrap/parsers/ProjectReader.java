@@ -1,4 +1,4 @@
-package bootstrap.utils;
+package bootstrap.parsers;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -7,7 +7,7 @@ import java.util.Objects;
 public class ProjectReader {
 
 
-    ProjectReader() { }
+    public ProjectReader() { }
 
     // read all java files from specific folder
     public ArrayList<File> listJavaFilesForFolder(final File folder) {
