@@ -15,6 +15,8 @@ public class ClassDeclarationsCollector extends FamixCollector {
         super(ctModel);
     }
 
+
+
     public List<CtClass> getClassDeclarations() {
        return ctModel.getElements(new TypeFilter<CtClass>(CtClass.class));
     }

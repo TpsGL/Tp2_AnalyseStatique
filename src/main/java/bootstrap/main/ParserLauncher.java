@@ -17,7 +17,9 @@ public class ParserLauncher {
 
     public static final String QUIT = "X";
 
-    public static final String projectPath= "C:\\Users\\gm_be\\IdeaProjects\\Visitor-Pattern-Implementation-Java-master";
+    //public static final String projectPath= "C:\\Users\\gm_be\\IdeaProjects\\Visitor-Pattern-Implementation-Java-master";
+
+    public static final String projectPath = "C:\\Users\\gm_be\\IdeaProjects\\chain_of_responsibility";
 
     public static final String jrePath="C:\\Program Files\\Java\\jdk1.8.0_291";
 
@@ -55,6 +57,7 @@ public class ParserLauncher {
     private Graph processUserInput(String userInput) {
 
         Graph graph = null;
+
 
         try {
             switch(userInput) {

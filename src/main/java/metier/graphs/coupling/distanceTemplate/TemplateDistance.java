@@ -10,7 +10,7 @@ public abstract class TemplateDistance {
             double distance1 = getFirstValueOfCoupling(source, destination);
             double distance2 = getSecondValueOfCoupling(destination, source);
 
-            expectedDistance = calculateDistanceVariant(distance1, distance2);
+            expectedDistance = 1 - calculateDistanceVariant(distance1, distance2);
 
         } catch (Exception e) {
             e.printStackTrace();

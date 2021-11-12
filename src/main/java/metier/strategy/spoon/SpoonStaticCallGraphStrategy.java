@@ -8,13 +8,15 @@ import spoon.reflect.CtModel;
 import spoon.reflect.code.CtInvocation;
 import spoon.reflect.declaration.CtClass;
 import spoon.reflect.declaration.CtMethod;
+import spoon.reflect.declaration.CtTypeInformation;
 import visitors.spoon.ClassDeclarationsCollector;
+import visitors.spoon.InterfaceDeclarationsCollector;
 import visitors.spoon.MethodDeclarationsCollector;
 import visitors.spoon.MethodInvocationsCollector;
 
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class SpoonStaticCallGraphStrategy implements StaticCallGraphCreatorStrategy {
 
@@ -23,10 +25,16 @@ public class SpoonStaticCallGraphStrategy implements StaticCallGraphCreatorStrat
 
     private SpoonASTParser parser;
 
+    private CtModel ctModel;
+
+    private Set<String> classes = new HashSet<>();
+
+
     public static SpoonStaticCallGraphStrategy getInstance(SpoonASTParser parser){
         if (instance == null) {
             instance = new SpoonStaticCallGraphStrategy();
             instance.setParser(parser);
+            instance.setCtModel(parser);
         }
         return instance;
     }
@@ -35,14 +43,31 @@ public class SpoonStaticCallGraphStrategy implements StaticCallGraphCreatorStrat
         this.parser = parser;
     }
 
+    public void setCtModel(SpoonASTParser parser) { this.ctModel = parser.createFAMIXModel(); }
 
+    public void setClasses(ClassDeclarationsCollector classDeclarationsCollector,
+                           InterfaceDeclarationsCollector interfaceDeclarationsCollector) {
+
+        classes = classDeclarationsCollector.getClassDeclarations().stream().map(CtTypeInformation::getQualifiedName).collect(Collectors.toSet());
+
+        Set<String> interfaces = interfaceDeclarationsCollector.getInterfaceDeclarations().stream().map(CtTypeInformation::getQualifiedName).collect(Collectors.toSet());
+
+        classes.addAll(interfaces);
+
+        System.out.println(classes);
+    }
 
     @Override
     public Graph createCallGraph() throws IOException {
         Graph graph = new Graph();
 
-        CtModel ctModel = parser.createFAMIXModel();
+
+
         ClassDeclarationsCollector classDeclarationsCollector = new ClassDeclarationsCollector(ctModel);
+        InterfaceDeclarationsCollector interfaceDeclarationsCollector = new InterfaceDeclarationsCollector(ctModel);
+
+        setClasses(classDeclarationsCollector, interfaceDeclarationsCollector);
+
         MethodDeclarationsCollector methodDeclarationsCollector = MethodDeclarationsCollector.getInstance();
         MethodInvocationsCollector methodInvocationsCollector = MethodInvocationsCollector.getInstance();
         HelperGraph helperGraph = HelperGraph.getInstance();
@@ -62,9 +87,13 @@ public class SpoonStaticCallGraphStrategy implements StaticCallGraphCreatorStrat
 
                     for (CtInvocation ctInvocation: methodInvocationsCollector.getMethodsInvocation(ctMethod)) {
 
+
                         String classDeclarationOfMethodInvocationName =
                                 helperGraph.getClassDeclarationOfMethodInvocationName(ctInvocation);
-                        if (!classDeclarationOfMethodInvocationName.equals(ctClass.getQualifiedName())) {
+                        if ( !classDeclarationOfMethodInvocationName.equals(ctClass.getQualifiedName())
+                                && (classes.contains(classDeclarationOfMethodInvocationName))
+                           )
+                        {
 
                             tmpMap.put(  helperGraph.getMethodInvocationName(ctInvocation), classDeclarationOfMethodInvocationName);
                         }
@@ -82,5 +111,9 @@ public class SpoonStaticCallGraphStrategy implements StaticCallGraphCreatorStrat
         }
 
         return graph;
+    }
+
+    public Set<String> getClasses() {
+        return classes;
     }
 }
